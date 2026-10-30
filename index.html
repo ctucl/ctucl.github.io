@@ -103,6 +103,15 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .shot.fit { border-style: solid; background: #ffffff; }
 .shot.fit img { object-fit: contain; padding: 6px; background: #ffffff; }
 .shot img { z-index: 1; }
+/* Movies and interactive 3D models sit above the still image and the placeholder */
+.shot video, .shot model-viewer { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
+.shot video { object-fit: cover; background: var(--accent-soft); }
+.shot model-viewer { --poster-color: transparent; }
+.shot.loaded .slot { display: none; }
+.shot.loaded::after {
+  content: "Drag to rotate"; position: absolute; right: 10px; bottom: 8px; z-index: 3;
+  font: 500 0.6875rem/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+}
 /* A card or hero without its photo collapses to a single text column */
 .hero:not(:has(.shot)), .sheet:not(:has(.shot, .diagrams)) { grid-template-columns: minmax(0, 1fr); }
 
@@ -243,11 +252,12 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
         <div class="diagrams">
           <figure class="shot">
             <img src="images/spatial.jpg" alt="Segmented cells with single-molecule HCR transcripts" onerror="this.remove()">
-            <figcaption class="slot"><b>Image coming soon</b>Segmented cells and transcripts</figcaption>
+            <video autoplay muted loop playsinline preload="metadata" aria-label="Movie of segmented cells and transcripts"><source src="media/spatial.webm" type="video/webm"><source src="media/spatial.mp4" type="video/mp4" onerror="this.parentElement.remove()"></video>
+            <figcaption class="slot"><b>Movie coming soon</b>Segmented cells and transcripts</figcaption>
           </figure>
           <figure class="shot">
-            <img src="images/spatial-chamber.png" alt="Microfluidic staining chamber, FreeCAD render" onerror="this.remove()">
-            <figcaption class="slot"><b>Render coming soon</b>Microfluidic staining chamber (FreeCAD)</figcaption>
+            <model-viewer src="models/spatial-chamber.glb" alt="Microfluidic staining chamber, 3D model designed in FreeCAD" camera-controls auto-rotate rotation-per-second="20deg" interaction-prompt="none" touch-action="pan-y" shadow-intensity="0.6" environment-image="neutral"></model-viewer>
+            <figcaption class="slot"><b>3D model coming soon</b>Microfluidic staining chamber (FreeCAD)</figcaption>
           </figure>
         </div>
         <div>
@@ -364,8 +374,8 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
             <figcaption class="slot"><b>Photo coming soon</b>High-speed behaviour rig</figcaption>
           </figure>
           <figure class="shot">
-            <img src="images/behaviour-chamber.png" alt="Behaviour chamber, FreeCAD render" onerror="this.remove()">
-            <figcaption class="slot"><b>Render coming soon</b>Behaviour chamber (FreeCAD)</figcaption>
+            <model-viewer src="models/behaviour-chamber.glb" alt="Behaviour chamber, 3D model designed in FreeCAD" camera-controls auto-rotate rotation-per-second="20deg" interaction-prompt="none" touch-action="pan-y" shadow-intensity="0.6" environment-image="neutral"></model-viewer>
+            <figcaption class="slot"><b>3D model coming soon</b>Behaviour chamber (FreeCAD)</figcaption>
           </figure>
         </div>
         <div>
@@ -427,5 +437,19 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
   </section>
   <footer>© 2026 Chintan A. Trivedi</footer>
 </div>
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.shot video').forEach(function (v) {
+    if (reduce) { v.removeAttribute('autoplay'); v.pause(); }
+  });
+  document.querySelectorAll('model-viewer').forEach(function (m) {
+    if (reduce) m.removeAttribute('auto-rotate');
+    m.addEventListener('load', function () { m.closest('.shot').classList.add('loaded'); });
+    m.addEventListener('error', function () { m.remove(); });
+  });
+})();
+</script>
 </body>
 </html>
