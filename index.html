@@ -161,7 +161,8 @@ section { padding-block: 0 72px; }
 .duo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; }
 .pubs { margin: 0; padding: 0; list-style: none; }
 .pubs li { padding-block: 14px; border-bottom: 1px solid var(--rule); }
-.pubs .t { display: block; font-weight: 500; }
+.pubs .t { display: block; font-weight: 500; color: var(--ink); text-decoration: none; }
+.pubs a.t:hover { color: var(--accent); text-decoration: underline; }
 .pubs .j { font: 400 0.8125rem/1.6 var(--mono); color: var(--muted); }
 .plain { margin: 0; padding: 0; list-style: none; }
 .plain li { padding-block: 14px; border-bottom: 1px solid var(--rule); }
@@ -284,7 +285,7 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
           <p>Designs HCR v3.0 probe pairs from a transcript sequence, with BLAST-based specificity checks against a custom database. That makes it usable on newly sequenced organisms that are missing from the standard databases. It has been used to design probes in mosquitoes, flies and zebrafish.</p>
           <dl>
             <dt>Validated in</dt><dd>The malaria vector <i>Anopheles gambiae</i>, <i>STAR Protocols</i> 2025 (~9 citations in its first year)</dd>
-            <dt>Used in</dt><dd><i>Drosophila</i>: probes for labelling glia in a glial cell atlas (<i>PLoS Biology</i> 2023)<br>Zebrafish: HCR in the larval brain</dd>
+            <dt>Used in</dt><dd><i>Drosophila</i>: probes for labelling glia in a glial cell atlas (<i>PLOS Biology</i> 2023)<br>Zebrafish: HCR in the larval brain</dd>
             <dt>Install</dt><dd><code>pip install pybridizer</code></dd>
             <dt>Code</dt><dd><a href="https://github.com/ctucl/pybridizer">github.com/ctucl/pybridizer</a></dd>
           </dl>
@@ -407,11 +408,12 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
       <section id="publications" aria-labelledby="pub-h">
         <div class="sec-head"><h2 id="pub-h">Selected publications</h2></div>
         <ul class="pubs">
-          <li><span class="t">Protocol for multiplex whole-mount RNA fluorescence in situ hybridization combined with immunohistochemistry in the mosquito brain</span><span class="j">STAR Protocols · 2025</span></li>
-          <li><span class="t">A synaptic corollary discharge signal suppresses midbrain visual processing during saccade-like locomotion</span><span class="j">Nature Communications · 2023</span></li>
-          <li><span class="t">Classification of object size in retinotectal microcircuits</span><span class="j">Current Biology · 2014 · equal first author</span></li>
-          <li><span class="t">Visually driven chaining of elementary swim patterns into a goal-directed motor sequence: a virtual reality study of zebrafish prey capture</span><span class="j">Frontiers in Neural Circuits · 2013 · first author</span></li>
-          <li><span class="t">Layer-specific targeting of direction-selective neurons in the zebrafish optic tectum</span><span class="j">Neuron · 2012</span></li>
+          <li><a class="t" href="https://doi.org/10.1016/j.xpro.2025.104109">Protocol for multiplex whole-mount RNA fluorescence in situ hybridization combined with immunohistochemistry in the mosquito brain</a><span class="j">STAR Protocols · 2025</span></li>
+          <li><a class="t" href="https://doi.org/10.1038/s41467-023-43255-6">A synaptic corollary discharge signal suppresses midbrain visual processing during saccade-like locomotion</a><span class="j">Nature Communications · 2023</span></li>
+          <li><a class="t" href="https://doi.org/10.1371/journal.pbio.3002328">A <i>Drosophila</i> glial cell atlas reveals a mismatch between transcriptional and morphological diversity</a><span class="j">PLOS Biology · 2023</span></li>
+          <li><a class="t" href="https://doi.org/10.1016/j.cub.2014.09.012">Classification of object size in retinotectal microcircuits</a><span class="j">Current Biology · 2014 · equal first author</span></li>
+          <li><a class="t" href="https://doi.org/10.3389/fncir.2013.00086">Visually driven chaining of elementary swim patterns into a goal-directed motor sequence: a virtual reality study of zebrafish prey capture</a><span class="j">Frontiers in Neural Circuits · 2013 · first author</span></li>
+          <li><a class="t" href="https://doi.org/10.1016/j.neuron.2012.12.003">Layer-specific targeting of direction-selective neurons in the zebrafish optic tectum</a><span class="j">Neuron · 2012</span></li>
         </ul>
         <p class="more"><a href="https://scholar.google.com/citations?user=SiiAwOMAAAAJ">All 13 publications on Google Scholar</a></p>
       </section>
