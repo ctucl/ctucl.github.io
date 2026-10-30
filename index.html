@@ -140,6 +140,9 @@ section { padding-block: 0 72px; }
 
 /* Spec sheets */
 .sheet { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; padding-block: 32px; border-bottom: 1px solid var(--rule); }
+.sheet { row-gap: 14px; }
+.sheet-head { grid-column: 1 / -1; }
+.sheet-head .where { margin-bottom: 0; }
 .sheet h3 { font: 700 1.375rem/1.2 var(--display); margin: 0 0 6px; text-wrap: balance; }
 .where { font: 500 0.75rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 12px; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; }
 .status { color: var(--live); border: 1px solid currentColor; border-radius: 999px; padding: 2px 8px; letter-spacing: 0.06em; }
@@ -233,13 +236,15 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
       <div class="sec-head"><h2 id="work-h">Systems I've built</h2><p>Hardware · software · analysis</p></div>
 
       <article class="sheet">
+        <header class="sheet-head">
+          <h3>Automated genotype-to-phenotype screen</h3>
+          <p class="where">UCL · 2022 – present</p>
+        </header>
         <figure class="shot">
           <img src="images/vast.jpg" alt="VAST BioImager with a multi-well plate loaded" onerror="this.remove()">
           <figcaption class="slot"><b>Photo coming soon</b>VAST BioImager</figcaption>
         </figure>
         <div>
-          <h3>Automated genotype-to-phenotype screen</h3>
-          <p class="where">UCL · 2022 – present</p>
           <p>A VAST BioImager loads larval zebrafish from well plates, orients them, images them and sorts them back into plates. I set up the robot and built its automated workflow from the vendor software's functions for the arm, valves and pumps. My pipeline keeps each larva's well identity from the source plate through imaging and back into the sorted plate. That identity and the fish's genotype then stay attached through every later step, from raw images to registered brains, processed data and the statistics behind the final figures, so any result can be traced back to the fish it came from. I also built the LIMS the screening team works in every day.</p>
           <dl>
             <dt>Robot</dt><dd>VAST BioImager: plate loading, orientation, imaging, sorting</dd>
@@ -250,6 +255,10 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
       </article>
 
       <article class="sheet">
+        <header class="sheet-head">
+          <h3>Zebrafish spatial transcriptomics</h3>
+          <p class="where">UCL <span class="status">In development</span></p>
+        </header>
         <div class="diagrams">
           <figure class="shot">
             <img src="images/spatial.jpg" alt="Segmented cells with single-molecule HCR transcripts" onerror="this.remove()">
@@ -262,8 +271,6 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
           </figure>
         </div>
         <div>
-          <h3>Zebrafish spatial transcriptomics</h3>
-          <p class="where">UCL <span class="status">In development</span></p>
           <p>An end-to-end system for mapping cell types in the larval brain: marker genes chosen from single-cell RNA-seq, HCR staining automated in microfluidic chambers I designed, single-molecule imaging and a pipeline from raw images to cell-type maps.</p>
           <dl>
             <dt>Markers</dt><dd>Derived from single-cell RNA-seq analysis</dd>
@@ -275,13 +282,15 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
       </article>
 
       <article class="sheet">
+        <header class="sheet-head">
+          <h3>pybridizer: HCR probe design for any species</h3>
+          <p class="where">Open source · Python · PyPI</p>
+        </header>
         <figure class="shot fit">
           <img src="images/pybridizer.png" alt="pybridizer output: positions of 32 designed probe pairs along a target transcript" onerror="this.remove()">
           <figcaption class="slot"><b>Image coming soon</b>Probe alignment plot</figcaption>
         </figure>
         <div>
-          <h3>pybridizer: HCR probe design for any species</h3>
-          <p class="where">Open source · Python · PyPI</p>
           <p>Designs HCR v3.0 probe pairs from a transcript sequence, with BLAST-based specificity checks against a custom database. That makes it usable on newly sequenced organisms that are missing from the standard databases. It has been used to design probes in mosquitoes, flies and zebrafish.</p>
           <dl>
             <dt>Validated in</dt><dd>The malaria vector <i>Anopheles gambiae</i>, <i>STAR Protocols</i> 2025 (~9 citations in its first year)</dd>
@@ -293,6 +302,10 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
       </article>
 
       <article class="sheet">
+        <header class="sheet-head">
+          <h3>Closed-loop virtual reality and two-photon imaging</h3>
+          <p class="where">Max Planck Institute for Medical Research · 2009 – 2016</p>
+        </header>
         <div class="diagrams">
           <figure class="diagram">
             <svg viewBox="0 0 400 240" role="img" aria-label="Closed-loop virtual reality: each swim, read from muscle EMG, moves the visual scene">
@@ -358,8 +371,6 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
           </figure>
         </div>
         <div>
-          <h3>Closed-loop virtual reality and two-photon imaging</h3>
-          <p class="where">Max Planck Institute for Medical Research · 2009 – 2016</p>
           <p>A virtual reality for larval zebrafish in which the fish's own swimming moves the visual world in real time. I built two versions: one driven by muscle (EMG) recordings and one driven by tail kinematics tracked in partially tethered larvae. Combined with two-photon imaging and single-cell patch clamp, it helped decode how visual processing in the brain, down to single neurons and synapses, lets the fish chain elementary motor patterns into a goal-directed prey-capture sequence. After I left, the system enabled the lab's discovery of a synaptic corollary discharge that suppresses midbrain visual processing during locomotion.</p>
           <dl>
             <dt>Built</dt><dd>VR driven by EMG or by tail tracking, two-photon microscopes</dd>
@@ -370,6 +381,10 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
       </article>
 
       <article class="sheet">
+        <header class="sheet-head">
+          <h3>High-speed behaviour rigs</h3>
+          <p class="where">UCL · 2016 – present</p>
+        </header>
         <div class="diagrams">
           <figure class="shot">
             <img src="images/tracking.jpg" alt="High-speed behaviour tracking rig" onerror="this.remove()">
@@ -381,8 +396,6 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
           </figure>
         </div>
         <div>
-          <h3>High-speed behaviour rigs</h3>
-          <p class="where">UCL · 2016 – present</p>
           <p>I set up the Wilson Lab's behaviour work from scratch: rigs, chambers and tracking. The rigs deliver multimodal stimuli (visual, acoustic, thermal and chemical) while a high-speed camera follows several larvae at once and tracks their behaviour in real time.</p>
           <dl>
             <dt>Tracking</dt><dd>Real-time, multi-larva, Python with numba</dd>
