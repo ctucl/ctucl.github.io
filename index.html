@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chintan Trivedi</title>
+<meta name="description" content="Chintan A. Trivedi, PhD: scientific instrumentation, lab automation and research software for zebrafish neuroscience.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: an instrument datasheet. Each built system is a spec sheet: photo, what it does, and a mono spec table. */
+:root {
+  --paper: #f5f7f8;
+  --panel: #ffffff;
+  --ink: #15212b;
+  --muted: #56646f;
+  --rule: #d5dde2;
+  --accent: #0e6a74;
+  --accent-soft: #e2eff0;
+  --live: #a8326a;
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0e151b; --panel: #131d25; --ink: #e5ecf0; --muted: #9aa8b3;
+    --rule: #26343e; --accent: #5ec2cb; --accent-soft: #15303a; --live: #e07ba8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0e151b; --panel: #131d25; --ink: #e5ecf0; --muted: #9aa8b3;
+  --rule: #26343e; --accent: #5ec2cb; --accent-soft: #15303a; --live: #e07ba8;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.wrap { max-width: 1040px; margin: 0 auto; }
+
+/* Header */
+.top {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: 8px 24px; padding-block: 24px; border-bottom: 1px solid var(--rule);
+}
+.top .name { font: 700 1rem/1 var(--display); letter-spacing: 0.01em; color: var(--ink); text-decoration: none; }
+.top nav { display: flex; flex-wrap: wrap; gap: 4px 20px; font: 500 0.8125rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; }
+.top nav a { color: var(--muted); text-decoration: none; padding-block: 6px; }
+.top nav a:hover { color: var(--accent); }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px; align-items: center; padding-block: 64px 48px; }
+.eyebrow { font: 500 0.75rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin: 0 0 16px; }
+.hero h1 { font: 700 clamp(2.5rem, 6vw, 4.25rem)/1 var(--display); letter-spacing: -0.02em; margin: 0 0 20px; text-wrap: balance; }
+.headline { font: 500 clamp(1.25rem, 2.6vw, 1.6rem)/1.3 var(--display); margin: 0 0 14px; max-width: 30em; text-wrap: balance; }
+.lineage { font: 500 clamp(1.15rem, 2.2vw, 1.4rem)/1.35 var(--display); margin: 0 0 20px; text-wrap: balance; }
+.lineage span { color: var(--muted); font-weight: 500; }
+.lineage strong { color: var(--accent); font-weight: 700; }
+.hero p.lede { margin: 0 0 24px; max-width: 34em; color: var(--ink); }
+.links { display: flex; flex-wrap: wrap; gap: 10px; }
+.links a {
+  font: 500 0.875rem/1 var(--body); text-decoration: none; color: var(--ink);
+  border: 1px solid var(--rule); background: var(--panel); padding: 10px 14px; border-radius: 6px;
+}
+.links a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Spec strip under hero */
+.specs {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0;
+  border-block: 1px solid var(--rule); margin-bottom: 72px;
+}
+.specs div { padding: 16px 16px 16px 0; }
+.specs div + div { padding-left: 16px; border-left: 1px solid var(--rule); }
+.specs dt { font: 500 0.6875rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); }
+.specs dd { margin: 6px 0 0; font: 600 1.0625rem/1.3 var(--body); font-variant-numeric: tabular-nums; }
+
+/* Image slots: a photo covers the slot once its file exists */
+.shot {
+  position: relative; margin: 0; aspect-ratio: 4 / 3; max-width: 100%;
+  border: 1px dashed var(--rule); border-radius: 6px; background: var(--accent-soft); overflow: hidden;
+}
+.shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.shot .slot {
+  position: absolute; inset: 0; display: grid; place-content: center; gap: 4px; text-align: center; padding: 16px;
+  font: 400 0.75rem/1.4 var(--mono); color: var(--muted);
+}
+.shot .slot b { font-weight: 500; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; }
+.hero .shot { aspect-ratio: 4 / 5; }
+/* A card or hero without its photo collapses to a single text column */
+.hero:not(:has(.shot)), .sheet:not(:has(.shot)) { grid-template-columns: minmax(0, 1fr); }
+
+/* Sections */
+section { padding-block: 0 72px; }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 2px solid var(--ink); padding-bottom: 10px; margin-bottom: 8px; }
+.sec-head h2 { font: 700 clamp(1.5rem, 3vw, 2rem)/1.1 var(--display); margin: 0; letter-spacing: -0.01em; }
+.sec-head p { margin: 0; font: 400 0.8125rem/1.4 var(--mono); color: var(--muted); }
+
+/* Spec sheets */
+.sheet { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; padding-block: 32px; border-bottom: 1px solid var(--rule); }
+.sheet h3 { font: 700 1.375rem/1.2 var(--display); margin: 0 0 6px; text-wrap: balance; }
+.where { font: 500 0.75rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 12px; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; }
+.status { color: var(--live); border: 1px solid currentColor; border-radius: 999px; padding: 2px 8px; letter-spacing: 0.06em; }
+.sheet p { margin: 0 0 16px; max-width: 38em; }
+.sheet dl { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); border-top: 1px solid var(--rule); }
+.sheet dt, .sheet dd { padding: 8px 0; border-bottom: 1px solid var(--rule); }
+.sheet dt { font: 500 0.6875rem/1.9 var(--mono); text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); padding-right: 20px; }
+.sheet dd { margin: 0; font-size: 0.9375rem; font-variant-numeric: tabular-nums; min-width: 0; }
+
+/* Experience */
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline li { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 24px; padding-block: 18px; border-bottom: 1px solid var(--rule); }
+.timeline .when { font: 400 0.8125rem/1.7 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.timeline h3 { font: 600 1.0625rem/1.4 var(--body); margin: 0; }
+.timeline .org { color: var(--muted); margin: 0; }
+.timeline p.what { margin: 6px 0 0; max-width: 40em; }
+
+/* Two-column lower area */
+.duo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; }
+.pubs { margin: 0; padding: 0; list-style: none; }
+.pubs li { padding-block: 14px; border-bottom: 1px solid var(--rule); }
+.pubs .t { display: block; font-weight: 500; }
+.pubs .j { font: 400 0.8125rem/1.6 var(--mono); color: var(--muted); }
+.plain { margin: 0; padding: 0; list-style: none; }
+.plain li { padding-block: 14px; border-bottom: 1px solid var(--rule); }
+.plain b { font-weight: 600; }
+.more { margin: 14px 0 0; font-size: 0.9375rem; }
+
+/* Contact */
+.contact { border-top: 2px solid var(--ink); padding-block: 32px 64px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; }
+.contact h2 { font: 700 clamp(1.5rem, 3vw, 2rem)/1.1 var(--display); margin: 0 0 8px; }
+.contact p { margin: 0; color: var(--muted); max-width: 34em; }
+.addr { font: 500 1rem/1.4 var(--mono); user-select: all; color: var(--ink); }
+footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 0 32px; }
+
+@media (max-width: 760px) {
+  .hero, .sheet, .duo, .contact { grid-template-columns: minmax(0, 1fr); }
+  .hero { gap: 32px; padding-block: 40px 32px; }
+  .hero .shot { aspect-ratio: 4 / 3; }
+  .specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .specs div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .specs div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  .timeline li { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .sheet { gap: 20px; }
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="name" href="#top">Chintan A. Trivedi</a>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#publications">Publications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">Senior Research Fellow · UCL · London</p>
+        <h1>Chintan A. Trivedi, PhD</h1>
+        <p class="headline">Interdisciplinary scientist researching how neural circuit development drives behaviour.</p>
+        <p class="lineage"><span>Engineer</span> → <span>neuroscientist</span> → <strong>systems neurobiologist</strong></p>
+        <p class="lede">My research asks how brain development shapes behaviour. To answer that, I build the hardware and software that run the experiments. These include microscopes, closed-loop behaviour systems and automated pipelines for imaging and screening. I also write the code that connects them to instruments, data and the people who use them. My current work automates a Wellcome-funded zebrafish genetic screen, spanning robotic larval handling, spatial transcriptomics, functional imaging and behaviour. The screen lets me link the molecular profiles of cell types to their function, and ultimately to how those cells shape behaviour.</p>
+        <div class="links">
+          <a href="https://github.com/ctucl">GitHub</a>
+          <a href="https://scholar.google.com/citations?user=SiiAwOMAAAAJ">Google Scholar</a>
+          <a href="https://www.linkedin.com/in/dr-chintan-trivedi-phd-220b846">LinkedIn</a>
+        </div>
+      </div>
+      <figure class="shot">
+        <img src="images/portrait.jpg" alt="Chintan Trivedi in the lab" onerror="this.closest('figure').remove()">
+        <figcaption class="slot"><b>Add photo</b>images/portrait.jpg<br>you, or you at a rig</figcaption>
+      </figure>
+    </div>
+
+    <dl class="specs">
+      <div><dt>Building instruments</dt><dd>Since 2007</dd></div>
+      <div><dt>Publications</dt><dd>13 · h-index 11</dd></div>
+      <div><dt>Wellcome grant</dt><dd>£4.5M, co-written</dd></div>
+      <div><dt>Students supervised</dt><dd>~20 at UCL</dd></div>
+    </dl>
+
+    <section id="work" aria-labelledby="work-h">
+      <div class="sec-head"><h2 id="work-h">Systems I've built</h2><p>Hardware · software · analysis</p></div>
+
+      <article class="sheet">
+        <figure class="shot">
+          <img src="images/vast.jpg" alt="VAST BioImager with a multi-well plate loaded" onerror="this.closest('figure').remove()">
+          <figcaption class="slot"><b>Add photo</b>images/vast.jpg</figcaption>
+        </figure>
+        <div>
+          <h3>Automated genotype-to-phenotype screen</h3>
+          <p class="where">UCL · 2022 – present</p>
+          <p>A VAST BioImager loads larval zebrafish from well plates, orients them, images them and sorts them back into plates. I set it up and wrote the pipeline that links each fish's genotype to its imaging phenotype, plus the LIMS the screening team works in every day.</p>
+          <dl>
+            <dt>Robot</dt><dd>VAST BioImager: plate loading, orientation, imaging, sorting</dd>
+            <dt>Scale</dt><dd>46 genes screened, 11 with deep phenotyping, 1,000+ 3D brains imaged and analysed</dd>
+            <dt>Software</dt><dd>Python analysis pipeline; LIMS in daily use by a 5-person team</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <figure class="shot">
+          <img src="images/spatial.jpg" alt="Microfluidic staining chamber and single-molecule HCR image" onerror="this.closest('figure').remove()">
+          <figcaption class="slot"><b>Add photo</b>images/spatial.jpg<br>chamber, or an Airyscan image</figcaption>
+        </figure>
+        <div>
+          <h3>Zebrafish spatial transcriptomics</h3>
+          <p class="where">UCL <span class="status">In development</span></p>
+          <p>An end-to-end system for mapping cell types in the larval brain: marker genes chosen from single-cell RNA-seq, HCR staining automated in microfluidic chambers I designed, single-molecule imaging and a pipeline from raw images to cell-type maps.</p>
+          <dl>
+            <dt>Markers</dt><dd>Derived from single-cell RNA-seq analysis</dd>
+            <dt>Staining</dt><dd>Automated HCR in custom FreeCAD-designed microfluidics</dd>
+            <dt>Imaging</dt><dd>Single-molecule HCR on a Zeiss Airyscan</dd>
+            <dt>Analysis</dt><dd>Cell segmentation, transcript counting, cell-type mapping (complete)</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <figure class="shot">
+          <img src="images/pybridizer.png" alt="pybridizer probe alignment plot" onerror="this.closest('figure').remove()">
+          <figcaption class="slot"><b>Add image</b>images/pybridizer.png<br>probe alignment plot from the repo</figcaption>
+        </figure>
+        <div>
+          <h3>pybridizer: HCR probe design for any species</h3>
+          <p class="where">Open source · Python · PyPI</p>
+          <p>Designs HCR v3.0 probe pairs from a transcript sequence, with BLAST-based specificity checks against a custom database. That makes it usable on newly sequenced organisms that are missing from the standard databases.</p>
+          <dl>
+            <dt>Validated in</dt><dd>The malaria vector <i>Anopheles gambiae</i>, <i>STAR Protocols</i> 2025 (~9 citations in its first year)</dd>
+            <dt>Install</dt><dd><code>pip install pybridizer</code></dd>
+            <dt>Code</dt><dd><a href="https://github.com/ctucl/pybridizer">github.com/ctucl/pybridizer</a></dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <figure class="shot">
+          <img src="images/vr.jpg" alt="Virtual reality setup for larval zebrafish" onerror="this.closest('figure').remove()">
+          <figcaption class="slot"><b>Add photo</b>images/vr.jpg</figcaption>
+        </figure>
+        <div>
+          <h3>Closed-loop virtual reality and two-photon imaging</h3>
+          <p class="where">Max Planck Institute for Medical Research · 2009 – 2016</p>
+          <p>A virtual reality for larval zebrafish in which the fish's own swimming, read from muscle (EMG) recordings, moves the visual world in real time. Paired with two-photon microscopes I built and single-cell patch clamp, it was used to study how prey capture is assembled from elementary motor patterns. After I left, the system went on to enable the lab's discovery of a synaptic corollary discharge that suppresses midbrain visual processing during locomotion.</p>
+          <dl>
+            <dt>Built</dt><dd>VR stimulus system, two-photon microscopes</dd>
+            <dt>Recording</dt><dd>EMG, single-cell patch clamp, calcium imaging</dd>
+            <dt>Papers</dt><dd><i>Frontiers in Neural Circuits</i> 2013 (first author), <i>Current Biology</i> 2014 (equal first), <i>Nature Communications</i> 2023 (co-author)</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <figure class="shot">
+          <img src="images/tracking.jpg" alt="High-speed behaviour tracking rig" onerror="this.closest('figure').remove()">
+          <figcaption class="slot"><b>Add photo</b>images/tracking.jpg</figcaption>
+        </figure>
+        <div>
+          <h3>High-speed behaviour rigs</h3>
+          <p class="where">UCL · 2016 – present</p>
+          <p>I set up the Wilson Lab's behaviour work from scratch: rigs, chambers and tracking. The current rig follows several larvae at once with a high-speed camera and tracks them in real time.</p>
+          <dl>
+            <dt>Tracking</dt><dd>Real-time, multi-larva, Python with numba</dd>
+            <dt>Control</dt><dd>Arduino-based stimulus control and data acquisition</dd>
+            <dt>Hardware</dt><dd>Behaviour chambers of my own CAD design</dd>
+          </dl>
+        </div>
+      </article>
+    </section>
+
+    <section id="experience" aria-labelledby="exp-h">
+      <div class="sec-head"><h2 id="exp-h">Experience</h2><p>Most recent first</p></div>
+      <ol class="timeline">
+        <li><span class="when">2022 – present</span><div><h3>Senior Research Fellow</h3><p class="org">Wilson Lab, University College London</p><p class="what">Co-wrote an 8-year, £4.5M Wellcome Trust grant with Stephen Wilson and Isaac Bianco, and was promoted after the award. Lead engineering for the lab's genetic screen and spatial transcriptomics.</p></div></li>
+        <li><span class="when">2016 – 2022</span><div><h3>Postdoctoral Research Fellow</h3><p class="org">Wilson Lab, University College London</p><p class="what">Established the lab's behaviour and imaging-analysis capability from scratch.</p></div></li>
+        <li><span class="when">2009 – 2016</span><div><h3>Doctoral Researcher, then Postdoctoral Scholar</h3><p class="org">Max Planck Institute for Medical Research, Heidelberg</p><p class="what">PhD (Dr. rer. nat., summa cum laude), University of Heidelberg, 2014.</p></div></li>
+        <li><span class="when">2007 – 2009</span><div><h3>Research Assistant</h3><p class="org">Texas A&amp;M University</p><p class="what">MSc Biomedical Engineering. Built a time-resolved fluorescence spectroscopy system with automated, on-line analysis.</p></div></li>
+      </ol>
+    </section>
+
+    <div class="duo">
+      <section id="publications" aria-labelledby="pub-h">
+        <div class="sec-head"><h2 id="pub-h">Selected publications</h2></div>
+        <ul class="pubs">
+          <li><span class="t">Multiplex whole-mount RNA FISH combined with immunohistochemistry in the mosquito brain</span><span class="j">STAR Protocols · 2025</span></li>
+          <li><span class="t">A synaptic corollary discharge signal suppresses midbrain visual processing during saccade-like locomotion</span><span class="j">Nature Communications · 2023</span></li>
+          <li><span class="t">Classification of object size in retinotectal microcircuits</span><span class="j">Current Biology · 2014 · equal first author</span></li>
+          <li><span class="t">Visually driven chaining of elementary swim patterns into a goal-directed motor sequence</span><span class="j">Frontiers in Neural Circuits · 2013 · first author</span></li>
+          <li><span class="t">Layer-specific targeting of direction-selective neurons in the zebrafish optic tectum</span><span class="j">Neuron · 2012</span></li>
+        </ul>
+        <p class="more"><a href="https://scholar.google.com/citations?user=SiiAwOMAAAAJ">All 13 publications on Google Scholar</a></p>
+      </section>
+
+      <section aria-labelledby="skills-h">
+        <div class="sec-head"><h2 id="skills-h">Toolkit</h2></div>
+        <ul class="plain">
+          <li><b>Programming</b><br>Python (scientific stack), LabVIEW, MATLAB</li>
+          <li><b>Lab automation</b><br>Instrument integration, LIMS design, automated imaging pipelines, microfluidics</li>
+          <li><b>Analysis</b><br>Cell segmentation, spatial and single-cell transcriptomics, behaviour tracking</li>
+          <li><b>Instrumentation</b><br>Optical and microscope design, electronics, electrophysiology (patch clamp, EMG), Arduino control and data acquisition</li>
+          <li><b>CAD</b><br>FreeCAD, including the Optics Workbench</li>
+          <li><b>Teaching</b><br>About 20 BSc and MSc research students supervised at UCL; PhD thesis committee member</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <section id="contact" class="contact" aria-labelledby="contact-h">
+    <div>
+      <h2 id="contact-h">Get in touch</h2>
+      <p>Happy to talk about instrumentation, lab automation, or AI in the lab.</p>
+    </div>
+    <p class="addr">c.trivedi@ucl.ac.uk</p>
+  </section>
+  <footer>© 2026 Chintan A. Trivedi</footer>
+</div>
+</body>
+</html>
