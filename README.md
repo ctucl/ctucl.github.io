@@ -20,7 +20,7 @@ Landscape photos at about 4:3 fit the cards best.
 
 | File | Shows |
 | --- | --- |
-| `media/spatial.webm` + `media/spatial.mp4` | Looping movie of segmented cells and transcripts (shown over `images/spatial.jpg`, which is used if the movie is missing) |
+| `media/spatial.mp4` + `media/spatial.webm` | Looping movie of segmented cells and transcripts (shown over `images/spatial.jpg`, which is used if the movie is missing) |
 | `models/spatial-chamber.glb` | Interactive 3D model of the microfluidic staining chamber |
 | `models/behaviour-chamber.glb` | Interactive 3D model of the behaviour chamber |
 
