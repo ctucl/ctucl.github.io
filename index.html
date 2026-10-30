@@ -100,6 +100,9 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 }
 .shot .slot b { font-weight: 500; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; }
 .hero .shot { aspect-ratio: 4 / 5; }
+.shot.fit { border-style: solid; background: #ffffff; }
+.shot.fit img { object-fit: contain; padding: 6px; background: #ffffff; }
+.shot img { z-index: 1; }
 /* A card or hero without its photo collapses to a single text column */
 .hero:not(:has(.shot)), .sheet:not(:has(.shot, .diagrams)) { grid-template-columns: minmax(0, 1fr); }
 
@@ -204,8 +207,8 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
         </div>
       </div>
       <figure class="shot">
-        <img src="images/portrait.jpg" alt="Chintan Trivedi in the lab" onerror="this.closest('figure').remove()">
-        <figcaption class="slot"><b>Add photo</b>images/portrait.jpg<br>you, or you at a rig</figcaption>
+        <img src="images/portrait.jpg" alt="Chintan Trivedi in the lab" onerror="this.remove()">
+        <figcaption class="slot"><b>Photo coming soon</b></figcaption>
       </figure>
     </div>
 
@@ -221,8 +224,8 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
 
       <article class="sheet">
         <figure class="shot">
-          <img src="images/vast.jpg" alt="VAST BioImager with a multi-well plate loaded" onerror="this.closest('figure').remove()">
-          <figcaption class="slot"><b>Add photo</b>images/vast.jpg</figcaption>
+          <img src="images/vast.jpg" alt="VAST BioImager with a multi-well plate loaded" onerror="this.remove()">
+          <figcaption class="slot"><b>Photo coming soon</b>VAST BioImager</figcaption>
         </figure>
         <div>
           <h3>Automated genotype-to-phenotype screen</h3>
@@ -237,10 +240,16 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
       </article>
 
       <article class="sheet">
-        <figure class="shot">
-          <img src="images/spatial.jpg" alt="Microfluidic staining chamber and single-molecule HCR image" onerror="this.closest('figure').remove()">
-          <figcaption class="slot"><b>Add photo</b>images/spatial.jpg<br>chamber, or an Airyscan image</figcaption>
-        </figure>
+        <div class="diagrams">
+          <figure class="shot">
+            <img src="images/spatial.jpg" alt="Segmented cells with single-molecule HCR transcripts" onerror="this.remove()">
+            <figcaption class="slot"><b>Image coming soon</b>Segmented cells and transcripts</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="images/spatial-chamber.png" alt="Microfluidic staining chamber, FreeCAD render" onerror="this.remove()">
+            <figcaption class="slot"><b>Render coming soon</b>Microfluidic staining chamber (FreeCAD)</figcaption>
+          </figure>
+        </div>
         <div>
           <h3>Zebrafish spatial transcriptomics</h3>
           <p class="where">UCL <span class="status">In development</span></p>
@@ -255,9 +264,9 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
       </article>
 
       <article class="sheet">
-        <figure class="shot">
-          <img src="images/pybridizer.png" alt="pybridizer probe alignment plot" onerror="this.closest('figure').remove()">
-          <figcaption class="slot"><b>Add image</b>images/pybridizer.png<br>probe alignment plot from the repo</figcaption>
+        <figure class="shot fit">
+          <img src="images/pybridizer.png" alt="pybridizer output: positions of 32 designed probe pairs along a target transcript" onerror="this.remove()">
+          <figcaption class="slot"><b>Image coming soon</b>Probe alignment plot</figcaption>
         </figure>
         <div>
           <h3>pybridizer: HCR probe design for any species</h3>
@@ -349,10 +358,16 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
       </article>
 
       <article class="sheet">
-        <figure class="shot">
-          <img src="images/tracking.jpg" alt="High-speed behaviour tracking rig" onerror="this.closest('figure').remove()">
-          <figcaption class="slot"><b>Add photo</b>images/tracking.jpg</figcaption>
-        </figure>
+        <div class="diagrams">
+          <figure class="shot">
+            <img src="images/tracking.jpg" alt="High-speed behaviour tracking rig" onerror="this.remove()">
+            <figcaption class="slot"><b>Photo coming soon</b>High-speed behaviour rig</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="images/behaviour-chamber.png" alt="Behaviour chamber, FreeCAD render" onerror="this.remove()">
+            <figcaption class="slot"><b>Render coming soon</b>Behaviour chamber (FreeCAD)</figcaption>
+          </figure>
+        </div>
         <div>
           <h3>High-speed behaviour rigs</h3>
           <p class="where">UCL · 2016 – present</p>
