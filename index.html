@@ -127,6 +127,11 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .d-mirror { stroke: var(--ink); stroke-width: 2.5; }
 .d-fish { fill: var(--accent-soft); stroke: var(--ink); stroke-width: 1.25; }
 .d-eye { fill: var(--ink); }
+.d-mrna { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+.d-pa { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.d-pb { fill: none; stroke: var(--live); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.d-join { fill: var(--ink); }
+.d-dot { fill: var(--accent); }
 .d-head { fill: var(--accent); }
 .d-head-live { fill: var(--live); }
 .d-t { fill: var(--ink); font: 600 13px var(--body); }
@@ -286,10 +291,43 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
           <h3>pybridizer: HCR probe design for any species</h3>
           <p class="where">Open source · Python · PyPI</p>
         </header>
-        <figure class="shot fit">
-          <img src="images/pybridizer.png" alt="pybridizer output: positions of 32 designed probe pairs along a target transcript" onerror="this.remove()">
-          <figcaption class="slot"><b>Image coming soon</b>Probe alignment plot</figcaption>
-        </figure>
+        <div class="diagrams">
+          <figure class="diagram">
+            <svg viewBox="0 0 400 290" role="img" aria-label="pybridizer designs HCR probe pairs; each pair carries half an initiator, so signal is amplified only where both probes bind side by side">
+              <defs><marker id="pb-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="d-head" d="M0 0L10 5L0 10z"/></marker></defs>
+              <text class="d-t" x="4" y="16">Design</text>
+              <rect class="d-box" x="4" y="28" width="118" height="50" rx="8"/>
+              <text class="d-t" x="63" y="49" text-anchor="middle">Transcript</text>
+              <text class="d-s" x="63" y="65" text-anchor="middle">any species</text>
+              <rect class="d-box" x="138" y="28" width="118" height="50" rx="8"/>
+              <text class="d-t" x="197" y="49" text-anchor="middle">Probe pairs</text>
+              <text class="d-s" x="197" y="65" text-anchor="middle">tiled along it</text>
+              <rect class="d-box" x="272" y="28" width="118" height="50" rx="8"/>
+              <text class="d-t" x="331" y="49" text-anchor="middle">BLAST check</text>
+              <text class="d-s" x="331" y="65" text-anchor="middle">custom database</text>
+              <path class="d-loop" d="M122 53H136" marker-end="url(#pb-arrow)"/>
+              <path class="d-loop" d="M256 53H270" marker-end="url(#pb-arrow)"/>
+              <text class="d-t" x="4" y="116">Detect</text>
+              <line class="d-mrna" x1="20" y1="258" x2="380" y2="258"/>
+              <text class="d-s" x="380" y="278" text-anchor="end">target mRNA</text>
+              <path class="d-pa" d="M112 248H194L198 212"/>
+              <path class="d-pb" d="M288 248H206L202 212"/>
+              <text class="d-s" x="150" y="240" text-anchor="middle">probe pair</text>
+              <path class="d-line" d="M200 205L192 195L208 185L192 175L208 165L192 155L200 146"/>
+              <circle class="d-join" cx="200" cy="208" r="4.5"/>
+              <circle class="d-dot" cx="192" cy="195" r="3.5"/>
+              <circle class="d-dot" cx="208" cy="185" r="3.5"/>
+              <circle class="d-dot" cx="192" cy="175" r="3.5"/>
+              <circle class="d-dot" cx="208" cy="165" r="3.5"/>
+              <circle class="d-dot" cx="192" cy="155" r="3.5"/>
+              <circle class="d-dot" cx="200" cy="146" r="3.5"/>
+              <text class="d-s" x="216" y="212">initiator halves meet</text>
+              <text class="d-s" x="218" y="160">hairpins amplify into</text>
+              <text class="d-s" x="218" y="174">a fluorescent polymer</text>
+            </svg>
+            <figcaption>Schematic · each probe in a pair carries half an HCR initiator, so signal is amplified only where both bind side by side</figcaption>
+          </figure>
+        </div>
         <div>
           <p>Designs HCR v3.0 probe pairs from a transcript sequence, with BLAST-based specificity checks against a custom database. That makes it usable on newly sequenced organisms that are missing from the standard databases. It has been used to design probes in mosquitoes, flies and zebrafish.</p>
           <dl>
