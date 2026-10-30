@@ -101,7 +101,24 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .shot .slot b { font-weight: 500; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; }
 .hero .shot { aspect-ratio: 4 / 5; }
 /* A card or hero without its photo collapses to a single text column */
-.hero:not(:has(.shot)), .sheet:not(:has(.shot)) { grid-template-columns: minmax(0, 1fr); }
+.hero:not(:has(.shot)), .sheet:not(:has(.shot, .diagrams)) { grid-template-columns: minmax(0, 1fr); }
+
+/* Drawn schematics: inline SVG coloured from the theme tokens */
+.diagrams { display: grid; gap: 16px; align-content: start; }
+.diagram { margin: 0; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); padding: 12px; }
+.diagram svg { display: block; width: 100%; height: auto; }
+.diagram figcaption { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); margin-top: 8px; }
+.d-line { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+.d-loop { fill: none; stroke: var(--accent); stroke-width: 2; }
+.d-emit { fill: none; stroke: var(--live); stroke-width: 2; stroke-dasharray: 5 4; }
+.d-box { fill: var(--panel); stroke: var(--muted); stroke-width: 1.25; }
+.d-mirror { stroke: var(--ink); stroke-width: 2.5; }
+.d-fish { fill: var(--accent-soft); stroke: var(--ink); stroke-width: 1.25; }
+.d-eye { fill: var(--ink); }
+.d-head { fill: var(--accent); }
+.d-head-live { fill: var(--live); }
+.d-t { fill: var(--ink); font: 600 13px var(--body); }
+.d-s { fill: var(--muted); font: 400 11.5px var(--body); }
 
 /* Sections */
 section { padding-block: 0 72px; }
@@ -255,10 +272,70 @@ footer { font: 400 0.75rem/1.4 var(--mono); color: var(--muted); padding-block: 
       </article>
 
       <article class="sheet">
-        <figure class="shot">
-          <img src="images/vr.jpg" alt="Virtual reality setup for larval zebrafish" onerror="this.closest('figure').remove()">
-          <figcaption class="slot"><b>Add photo</b>images/vr.jpg</figcaption>
-        </figure>
+        <div class="diagrams">
+          <figure class="diagram">
+            <svg viewBox="0 0 400 240" role="img" aria-label="Closed-loop virtual reality: each swim, read from muscle EMG, moves the visual scene">
+              <defs><marker id="vr-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="d-head" d="M0 0L10 5L0 10z"/></marker></defs>
+              <rect class="d-box" x="24" y="20" width="160" height="50" rx="8"/>
+              <text class="d-t" x="104" y="42" text-anchor="middle">Visual display</text>
+              <text class="d-s" x="104" y="58" text-anchor="middle">virtual prey and scene</text>
+              <rect class="d-box" x="226" y="14" width="150" height="62" rx="8"/>
+              <text class="d-t" x="301" y="36" text-anchor="middle">Computer</text>
+              <text class="d-s" x="301" y="52" text-anchor="middle">detects each swim</text>
+              <text class="d-s" x="301" y="66" text-anchor="middle">and moves the scene</text>
+              <rect class="d-box" x="246" y="180" width="130" height="40" rx="8"/>
+              <text class="d-t" x="311" y="205" text-anchor="middle">Amplifier</text>
+              <path class="d-fish" d="M108 143 Q150 146 190 150 Q150 154 108 157 Z"/>
+              <ellipse class="d-fish" cx="96" cy="150" rx="15" ry="10"/>
+              <circle class="d-eye" cx="90" cy="142.5" r="3"/>
+              <circle class="d-eye" cx="90" cy="157.5" r="3"/>
+              <text class="d-s" x="130" y="182" text-anchor="middle">Larva</text>
+              <line class="d-line" x1="180" y1="151" x2="226" y2="200"/>
+              <text class="d-s" x="214" y="222" text-anchor="middle">EMG</text>
+              <path class="d-loop" d="M226 200H244" marker-end="url(#vr-arrow)"/>
+              <path class="d-loop" d="M311 180V78" marker-end="url(#vr-arrow)"/>
+              <path class="d-loop" d="M226 45H186" marker-end="url(#vr-arrow)"/>
+              <path class="d-loop" d="M96 70V137" marker-end="url(#vr-arrow)"/>
+              <text class="d-s" x="104" y="108">what the fish sees</text>
+            </svg>
+            <figcaption>Schematic · closed loop: each swim, read from muscle (EMG), moves the visual scene</figcaption>
+          </figure>
+          <figure class="diagram">
+            <svg viewBox="0 0 400 244" role="img" aria-label="Two-photon microscope, simplified light path">
+              <defs>
+                <marker id="tp-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="d-head" d="M0 0L10 5L0 10z"/></marker>
+                <marker id="tp-arrow-live" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="d-head-live" d="M0 0L10 5L0 10z"/></marker>
+              </defs>
+              <rect class="d-box" x="16" y="88" width="110" height="44" rx="8"/>
+              <text class="d-t" x="71" y="107" text-anchor="middle">IR laser</text>
+              <text class="d-s" x="71" y="123" text-anchor="middle">pulsed</text>
+              <rect class="d-box" x="146" y="88" width="100" height="44" rx="8"/>
+              <text class="d-t" x="196" y="107" text-anchor="middle">Scanners</text>
+              <text class="d-s" x="196" y="123" text-anchor="middle">x–y raster</text>
+              <rect class="d-box" x="252" y="14" width="104" height="44" rx="8"/>
+              <text class="d-t" x="304" y="33" text-anchor="middle">Detector</text>
+              <text class="d-s" x="304" y="49" text-anchor="middle">PMT</text>
+              <path class="d-loop" d="M126 110H144" marker-end="url(#tp-arrow)"/>
+              <path class="d-loop" d="M246 110H296V138" marker-end="url(#tp-arrow)"/>
+              <line class="d-mirror" x1="282" y1="96" x2="312" y2="126"/>
+              <text class="d-s" x="320" y="96">dichroic</text>
+              <path class="d-emit" d="M306 140V60" marker-end="url(#tp-arrow-live)"/>
+              <polygon class="d-box" points="282,140 318,140 311,180 289,180"/>
+              <text class="d-s" x="274" y="164" text-anchor="end">Objective</text>
+              <path class="d-loop" d="M300 180V194"/>
+              <path class="d-fish" d="M295 200 Q325 203 352 206 Q325 209 295 212 Z"/>
+              <ellipse class="d-fish" cx="284" cy="206" rx="13" ry="9"/>
+              <circle class="d-eye" cx="279" cy="199.5" r="2.6"/>
+              <circle class="d-eye" cx="279" cy="212.5" r="2.6"/>
+              <text class="d-s" x="318" y="234" text-anchor="middle">Larva</text>
+              <line class="d-loop" x1="20" y1="196" x2="44" y2="196"/>
+              <text class="d-s" x="52" y="200">excitation</text>
+              <line class="d-emit" x1="20" y1="218" x2="44" y2="218"/>
+              <text class="d-s" x="52" y="222">fluorescence</text>
+            </svg>
+            <figcaption>Schematic · two-photon microscope, simplified light path</figcaption>
+          </figure>
+        </div>
         <div>
           <h3>Closed-loop virtual reality and two-photon imaging</h3>
           <p class="where">Max Planck Institute for Medical Research · 2009 – 2016</p>
